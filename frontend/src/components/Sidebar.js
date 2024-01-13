@@ -1,7 +1,23 @@
 import React from 'react'
-import { Badge, ListGroup } from 'react-bootstrap'
+import { ListGroup } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { useLocation } from 'react-router-dom'
 
+const ListGroupItem = ({ path, name, active }) => {
+  return (
+    <>
+      <LinkContainer to={path}>
+        <ListGroup.Item variant="success" action active={active}>
+          {/* <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i> */}
+          {name}
+        </ListGroup.Item>
+      </LinkContainer>
+    </>
+  )
+}
 const Sidebar = () => {
+  const { pathname } = useLocation()
+  console.log(pathname)
   return (
     <>
       {/* <ListGroup>
@@ -11,16 +27,34 @@ const Sidebar = () => {
       </ListGroup> */}
 
       <ListGroup>
-        <ListGroup.Item variant="success" action active>
-          <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i>
-          Bank Detail
-        </ListGroup.Item>
+        <ListGroupItem
+          exact
+          path="/home"
+          name="Home"
+          active={'/' === pathname}
+        />
+        <ListGroupItem exact path="/bank" name="Bank Detail" />
+        <ListGroupItem exact path="/gmail" name="Gmail Account" />
+        <ListGroupItem exact path="/govtids" name="Govt. IDs" />
+        {/* <LinkContainer to="/">
+          <ListGroup.Item variant="success" action>
+            <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i>
+            Home
+          </ListGroup.Item>
+        </LinkContainer> */}
+
+        {/* <LinkContainer to="/bank">
+          <ListGroup.Item variant="success" action>
+            <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i>
+            Bank Detail
+          </ListGroup.Item>
+        </LinkContainer>
         <ListGroup.Item variant="success" action>
           Gmail Account
         </ListGroup.Item>
         <ListGroup.Item variant="success" action>
           Govt. IDs
-        </ListGroup.Item>
+        </ListGroup.Item> */}
       </ListGroup>
 
       {/* <ListGroup>
