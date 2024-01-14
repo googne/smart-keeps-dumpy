@@ -1,0 +1,30 @@
+[
+  {
+    "bankName": "Axis Bank",
+    "accountNumber": "",
+    "branchDetail": {
+      "address": {},
+      "ifsc": "",
+      "micr": ""
+    },
+    "accountHolderName": "Raj Aryan",
+    "accountHolderRelation": "ME",
+    "internetBanking": {},
+    "mobileBanking": {},
+    "securityQuestions": [],
+    "upiDetail": {},
+    "cards": [
+      {
+        "type": "Credit Card",
+        "cardNumber": 5334670012115354,
+        "expiry": "11/25",
+        "cvv": 315,
+        "pin": 4769,
+        "cardHolderName": "Raj Aryan",
+        "providedBy": "Flipkart",
+        "isActive": true,
+        "currentStatus": "ACTIVE"
+      }
+    ]
+  }
+]

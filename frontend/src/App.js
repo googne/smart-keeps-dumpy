@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Row, Col } from 'react-bootstrap'
 import Footer from './components/Footer'
@@ -20,10 +20,19 @@ const App = () => {
           </Col>
           <Col>
             <main>
-              <Route path="/" component={HomeScreen} exact />
-              <Route path="/home" component={HomeScreen} />
-              <Route path="/bank" component={BankScreen} />
-              <Route path="/bank/:id" component={BankDetailScreen} />
+              <Switch>
+                <Route path="/" component={HomeScreen} exact />
+                <Route path="/home" component={HomeScreen} />
+                <Route
+                  path="/bank"
+                  render={({ match: { url } }) => (
+                    <>
+                      <Route path={`${url}/`} component={BankScreen} exact />
+                      <Route path={`${url}/add`} component={BankDetailScreen} />
+                    </>
+                  )}
+                />
+              </Switch>
             </main>
           </Col>
         </Row>
