@@ -9,6 +9,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 
 import bankRoutes from './routes/bankRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 
 app.use('/api/banks', bankRoutes)
+app.use('/api/users', userRoutes)
 
 //production configuration
 if (process.env.NODE_ENV === 'production') {
