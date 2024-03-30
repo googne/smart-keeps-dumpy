@@ -12,7 +12,7 @@ const FormContainer = ({ size, children }) => {
 }
 
 FormContainer.defaultProps = {
-  size: 6,
+  size: 10,
 }
 
 export default FormContainer

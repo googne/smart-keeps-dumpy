@@ -1,148 +1,109 @@
-// import React, { useState, useEffect } from 'react'
-// import { Link, useLocation, useNavigate } from 'react-router-dom'
-// import { Form, Row, Col, Card } from 'react-bootstrap'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { FormProvider, useForm } from 'react-hook-form'
-// import Message from '../components/core/Message'
-// import FormContainer from '../components/core/FormContainer'
-// import { register } from '../actions/userActions'
+import React, { useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Card, Col, Row } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Formik, Form } from 'formik'
+import Message from '../components/core/Message'
+import { register } from '../actions/userActions'
+import InputBox from '../components/core/InputBox'
+import { REGISTER_ICON, RESET_ICON } from '../constants/iconConstants'
+import SubmitButton from '../components/core/Btn/SubmitButton'
+import { successLight } from '../inline-styles'
+import { registerHook } from '../validation/RegisterHook'
+import FormContainer from '../components/core/FormContainer'
+import Button from '../components/core/Btn/Button'
 
-// import Loader from '../components/core/Loader'
-// import InputBox from '../components/core/InputBox'
-// import { REGISTER_ICON } from '../constants/iconConstants'
-// import SubmitButton from '../components/core/Btn/SubmitButton'
-// import { successLight } from '../inline-styles'
-// import {
-//   name,
-//   emailAddress,
-//   password,
-//   confirmPassword,
-// } from '../validation/RegisterHook'
-// import ValidationInput from '../components/ValidationInput'
+const RegisterScreen = () => {
+  const { fields, validationSchema, initialValues, inputFields } = registerHook
+  const location = useLocation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-// const RegisterScreen = () => {
-//   const location = useLocation()
-//   const navigate = useNavigate()
-//   const methods = useForm()
-//   const { control, register, handleSubmit } = methods
-//   const [success, setSuccess] = useState(false)
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error: userRegisterError, userInfo } = userRegister
 
-//   const onSubmit = (data) => {
-//     console.log(data)
-//     methods.reset()
-//     setSuccess(true)
-//   }
+  const redirect = location.search ? location.search.split('=')[1] : '/'
 
-//   console.log(methods)
-//   // const [name, setName] = useState('')
-//   // const [email, setEmail] = useState('')
-//   // const [password, setPassword] = useState('')
-//   // const [confirmPassword, setConfirmPassword] = useState('')
-//   // const [message, setMessage] = useState(null)
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect)
+    }
+  }, [navigate, redirect, userInfo])
 
-//   const dispatch = useDispatch()
+  const handleSubmit = (values, { resetForm }) => {
+    const { name, email, password } = values
+    dispatch(register(name, email, password))
+    resetForm()
+  }
 
-//   const userRegister = useSelector((state) => state.userRegister)
-//   const { loading, error, userInfo } = userRegister
+  return (
+    <FormContainer>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {(validation) => (
+          <>
+            <Form>
+              <Card
+                className="border-success text-left"
+                style={{ borderWidth: '1.5px' }}
+              >
+                <Card.Header
+                  style={{
+                    backgroundColor: successLight,
+                    fontWeight: 'bolder',
+                    fontSize: 20,
+                  }}
+                  className="text-info"
+                >
+                  Sign Up
+                </Card.Header>
+                <Card.Body className="py-2 px-4">
+                  {userRegisterError && (
+                    <Message variant="danger">{userRegisterError}</Message>
+                  )}
+                  <Row>
+                    {fields.map((field, index) => (
+                      <Col key={index} md={6}>
+                        <InputBox {...inputFields[field]} {...validation} />
+                      </Col>
+                    ))}
+                  </Row>
+                </Card.Body>
+                <Card.Footer style={{ backgroundColor: successLight }}>
+                  <SubmitButton
+                    variant="warning"
+                    icon={REGISTER_ICON}
+                    label="Register"
+                    loader={loading}
+                    className="btn-sm"
+                  />
+                  <Button
+                    variant="warning"
+                    icon={RESET_ICON}
+                    label="Reset"
+                    className="btn-sm"
+                    onClick={validation.handleReset}
+                  />
+                  <span className="float-right mt-1">
+                    New Customer?{' '}
+                    <Link
+                      to={redirect ? `/login?redirect=${redirect}` : '/login'}
+                      className="text-info"
+                    >
+                      <strong>Register</strong>
+                    </Link>
+                  </span>
+                </Card.Footer>
+              </Card>
+            </Form>
+          </>
+        )}
+      </Formik>
+    </FormContainer>
+  )
+}
 
-//   const redirect = location.search ? location.search.split('=')[1] : '/'
-
-//   useEffect(() => {
-//     if (userInfo) {
-//       navigate(redirect)
-//     }
-//   }, [navigate, redirect, userInfo])
-
-//   // const submitHandler = (e) => {
-//   //   e.preventDefault()
-//   //   if (password !== confirmPassword) {
-//   //     setMessage('Passwords do not match')
-//   //   } else {
-//   //     dispatch(register(name, email, password))
-//   //   }
-//   // }
-
-//   return (
-//     <FormContainer size={10}>
-//       <FormProvider {...methods}>
-//         <Form onSubmit={handleSubmit(onSubmit)}>
-//           <Card
-//             className="border-success text-left"
-//             style={{ borderWidth: '1.5px' }}
-//           >
-//             <Card.Header
-//               style={{
-//                 backgroundColor: successLight,
-//                 fontWeight: 'bolder',
-//                 fontSize: 20,
-//               }}
-//               className="text-primary"
-//             >
-//               Sign Up
-//             </Card.Header>
-//             <Card.Body className="py-2 px-4">
-//               {/* {message && <Message variant="danger">{message}</Message>} */}
-//               {error && <Message variant="danger">{error}</Message>}
-//               <Row>
-//                 <Col>
-//                   <ValidationInput {...name} />
-//                 </Col>
-//                 <Col>
-//                   <ValidationInput {...emailAddress} />
-//                   {/* <InputBox
-//                     type="email"
-//                     label="Email Address"
-//                     value={email}
-//                     onChange={setEmail}
-//                   /> */}
-//                 </Col>
-//               </Row>
-//               <Row>
-//                 <Col>
-//                   <ValidationInput {...password} />
-
-//                   {/* <InputBox
-//                     type="password"
-//                     label="Password"
-//                     value={password}
-//                     onChange={setPassword}
-//                   /> */}
-//                 </Col>
-//                 <Col>
-//                   <ValidationInput {...confirmPassword} />
-
-//                   {/* <InputBox
-//                     type="password"
-//                     label="Confirm Password"
-//                     value={confirmPassword}
-//                     onChange={setConfirmPassword}
-//                   /> */}
-//                 </Col>
-//               </Row>
-//             </Card.Body>
-//             <Card.Footer style={{ backgroundColor: successLight }}>
-//               <SubmitButton
-//                 variant="warning"
-//                 icon={REGISTER_ICON}
-//                 label="Register"
-//                 loader={loading}
-//                 className="btn-sm"
-//               />
-//               <span className="float-right mt-1">
-//                 Have an Account?{' '}
-//                 <Link
-//                   to={redirect ? `/login?redirect=${redirect}` : '/login'}
-//                   className="text-info"
-//                 >
-//                   <strong>Login</strong>
-//                 </Link>
-//               </span>
-//             </Card.Footer>
-//           </Card>
-//         </Form>
-//       </FormProvider>
-//     </FormContainer>
-//   )
-// }
-
-// export default RegisterScreen
+export default RegisterScreen

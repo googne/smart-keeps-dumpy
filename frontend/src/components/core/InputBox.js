@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Form, Col } from 'react-bootstrap'
-import { AnimatePresence, motion } from 'framer-motion'
-import { WARNING_ICON, CHECK_ICON } from '../../constants/iconConstants'
+import React from 'react'
+import { Form } from 'react-bootstrap'
+import { motion } from 'framer-motion'
+import { WARNING_ICON } from '../../constants/iconConstants'
 
 const InputError = ({ message }) => {
-  // const [alert, setAlert] = useState('')
-  // const [alertIcon, setAlertIcon] = useState('')
-
-  // useEffect(() => {
-  //   // console.log(isError)
-  //   setAlert(() => {
-  //     return !isError ? 'success' : 'danger'
-  //   })
-  //   setAlertIcon(() => {
-  //     return !isError ? CHECK_ICON : WARNING_ICON
-  //   })
-  // }, [isError])
-
-  // console.log(isError, message)
-  // let cls = isInvalid ? 'success' : 'danger'
-  // let icon = isInvalid ? CHECK_ICON : WARNING_ICON
-  // console.log(cls, icon)
-
   return (
     <motion.p
-      className={`"badge badge-pill badge-round alert-danger text-danger mb-0 px-2 mt-1"`}
+      className={`"badge badge-pill badge-round alert-danger text-danger mb-0 px-2"`}
+      style={{ fontSize: '12px', marginTop: '2px' }}
       {...framer_error}
     >
       <i
@@ -33,9 +16,7 @@ const InputError = ({ message }) => {
           marginRight: '5px',
         }}
       ></i>
-      <span style={{ letterSpacing: '2px', verticalAlign: 'text-bottom' }}>
-        {message}
-      </span>
+      <span style={{ letterSpacing: '2px' }}>{message}</span>
     </motion.p>
   )
 }
@@ -44,6 +25,7 @@ const InputBox = ({
   name,
   type,
   label,
+  values,
   errors,
   touched,
   handleBlur,
@@ -53,10 +35,7 @@ const InputBox = ({
   return (
     <>
       <Form.Group controlId={name} className="mb-3 mt-0">
-        <Form.Label
-          className="text-info mb-2 px-1"
-          style={{ display: 'block' }}
-        >
+        <Form.Label className="text-info mb-1" style={{ display: 'block' }}>
           <strong>{label} </strong>
           <span style={{ float: 'right' }}>
             {errors[name] && touched[name] ? (
@@ -73,6 +52,7 @@ const InputBox = ({
             setFieldTouched(name)
             handleChange(e)
           }}
+          value={values[name]}
           isInvalid={errors[name] && touched[name]}
         ></Form.Control>
       </Form.Group>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
+import FormContainer from '../components/core/FormContainer'
 
 const WelcomeScreen = () => {
   return (

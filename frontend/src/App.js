@@ -11,12 +11,13 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
 import LoginScreen from './screens/LoginScreen'
-// import RegisterScreen from './screens/RegisterScreen'
+import RegisterScreen from './screens/RegisterScreen'
 // import HomeScreen from './screens/HomeScreen'
 // import BankScreen from './screens/BankScreen'
 // import BankDetailScreen from './screens/BankDetailScreen'
 // import SidebarLayout from './layout/SidebarLayout'
 import WelcomeScreen from './screens/WelcomeScreen'
+import DefaultLayout from './layout/DefaultLayout'
 
 const App = () => {
   return (
@@ -27,7 +28,13 @@ const App = () => {
           <Routes>
             <Route path="/" element={<WelcomeScreen />} exact />
             <Route path="/login" element={<LoginScreen />} />
-            {/* <Route path="/register" element={<RegisterScreen />} /> */}
+            <Route path="/register" element={<RegisterScreen />} />
+
+            {/* <Route element={<DefaultLayout />}>
+              <Route path="/" element={<WelcomeScreen />} exact />
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/register" element={<RegisterScreen />} />
+            </Route> */}
             {/* <Route element={<SidebarLayout />}>
               <Route path="/home" element={<HomeScreen />} />
               <Route
