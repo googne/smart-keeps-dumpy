@@ -19,9 +19,6 @@ const Header = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  // console.log(userInfo)
-  // const cart = useSelector((state) => state.cart)
-  // const { cartItems } = cart
 
   const logoutHandler = () => {
     dispatch(logout())
@@ -29,9 +26,12 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="success" expand="md" className="navbar-dark px-5 py-0">
+      <Navbar expand="md" className="navbar-dark px-5 py-0 custom-navbar">
         <Navbar.Brand as={Link} to="/" className="py-2">
-          <strong>Dumpy (Smart Keeps)</strong>
+          <span className="logo">D</span>
+          <span className="logo-name" title="Smart Keeps">
+            Dumpy
+          </span>
         </Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
           <Nav className="ml-auto">

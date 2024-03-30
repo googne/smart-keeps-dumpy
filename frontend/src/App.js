@@ -17,7 +17,6 @@ import RegisterScreen from './screens/RegisterScreen'
 // import BankDetailScreen from './screens/BankDetailScreen'
 // import SidebarLayout from './layout/SidebarLayout'
 import WelcomeScreen from './screens/WelcomeScreen'
-import DefaultLayout from './layout/DefaultLayout'
 
 const App = () => {
   return (
