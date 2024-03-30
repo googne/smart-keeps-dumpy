@@ -1,0 +1,21 @@
+/* MESSAGE */
+.alert-dismissible .btn-close {
+  font-size: 10px !important;
+  top: -8px !important;
+}
+
+/* DROPDOWN ON USERNAME */
+#username {
+  font-weight: bolder;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+
+.dropdown-toggle::after {
+  vertical-align: 7px;
+}
+
+.badge-round {
+  border-radius: 5px;
+}

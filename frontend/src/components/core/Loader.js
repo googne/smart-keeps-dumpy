@@ -13,12 +13,12 @@ const Loader = ({ size }) => {
 
   return (
     <Spinner
-      animation='border'
-      role='status'
+      animation="border"
+      role="status"
       size={size}
       style={{ ...xxlSize }}
     >
-      <span className='sr-only'>Loading...</span>
+      <span className="sr-only">Loading...</span>
     </Spinner>
   )
 }

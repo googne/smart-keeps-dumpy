@@ -5,3 +5,5 @@ const Email = ({ email }) => {
 }
 
 export default Email
+
+// Make this sub child of Text

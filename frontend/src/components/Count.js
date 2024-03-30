@@ -7,14 +7,14 @@ const Count = ({ type, current, total }) => {
       {current && total ? (
         <>
           {type === 'short' ? (
-            <span className='ml-1'>
+            <span className="ml-1">
               ({current}/{total})
             </span>
           ) : (
-            <Row className='align-items-center ml-2'>
+            <Row className="align-items-center ml-2">
               <Col>
                 <p>
-                  <strong className='text-danger'>
+                  <strong className="text-danger">
                     Showing Records: {current} out of {total}
                   </strong>
                 </p>
@@ -30,3 +30,4 @@ const Count = ({ type, current, total }) => {
 }
 
 export default Count
+// Make this sub child of Paginate

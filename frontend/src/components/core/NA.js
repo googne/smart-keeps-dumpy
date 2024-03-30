@@ -3,7 +3,7 @@ import React from 'react'
 const NA = () => {
   return (
     <>
-      <span className='badge rounded-pill bg-danger text-light px-4 py-1'>
+      <span className="badge rounded-pill bg-danger text-light px-4 py-1">
         NA
       </span>
     </>
@@ -11,3 +11,4 @@ const NA = () => {
 }
 
 export default NA
+// Make this sub child of Text.NA

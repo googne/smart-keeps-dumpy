@@ -5,3 +5,4 @@ const Heading = ({ value }) => {
 }
 
 export default Heading
+// Make this sub child of Text

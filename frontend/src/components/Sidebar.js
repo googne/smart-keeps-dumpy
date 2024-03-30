@@ -1,23 +1,25 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const ListGroupItem = ({ path, name, active }) => {
   return (
     <>
-      <LinkContainer to={path}>
-        <ListGroup.Item variant="success" action active={active}>
-          {/* <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i> */}
-          {name}
-        </ListGroup.Item>
-      </LinkContainer>
+      <ListGroup.Item
+        as={Link}
+        to={path}
+        variant="success"
+        action
+        active={active}
+      >
+        {/* <i className="fa fa-check-circle text-primary float-left mt-1 mr-1"></i> */}
+        {name}
+      </ListGroup.Item>
     </>
   )
 }
 const Sidebar = () => {
   const { pathname } = useLocation()
-  console.log(pathname)
   return (
     <>
       {/* <ListGroup>

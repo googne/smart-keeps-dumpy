@@ -1,47 +1,48 @@
-  import React from 'react'
+import React from 'react'
 
-  const GDate = ({ value, type }) => {
-    const options =
-      type === 'datetimezone'
-        ? {
-            year: 'numeric',
-            day: '2-digit',
-            month: 'short',
-            weekday: 'short',
-            hour: 'numeric',
-            minute: 'numeric',
-            timeZoneName: 'short',
-            timeZone: 'Asia/Kolkata',
-          }
-        : type === 'datetime'
-        ? {
-            year: 'numeric',
-            day: '2-digit',
-            month: 'short',
-            weekday: 'short',
-            hour: 'numeric',
-            minute: 'numeric',
-          }
-        : type === 'date'
-        ? { year: 'numeric', day: '2-digit', month: 'short' }
-        : {}
+const GDate = ({ value, type }) => {
+  const options =
+    type === 'datetimezone'
+      ? {
+          year: 'numeric',
+          day: '2-digit',
+          month: 'short',
+          weekday: 'short',
+          hour: 'numeric',
+          minute: 'numeric',
+          timeZoneName: 'short',
+          timeZone: 'Asia/Kolkata',
+        }
+      : type === 'datetime'
+      ? {
+          year: 'numeric',
+          day: '2-digit',
+          month: 'short',
+          weekday: 'short',
+          hour: 'numeric',
+          minute: 'numeric',
+        }
+      : type === 'date'
+      ? { year: 'numeric', day: '2-digit', month: 'short' }
+      : {}
 
-    const formatDate = (date) => {
-      const formattedDate = Intl.DateTimeFormat('en', options).format(
-        new Date(date)
-      )
-      return formattedDate
-    }
-
-    return (
-      <>
-        <span>{formatDate(value)}</span>
-      </>
+  const formatDate = (date) => {
+    const formattedDate = Intl.DateTimeFormat('en', options).format(
+      new Date(date)
     )
+    return formattedDate
   }
 
-  GDate.defaultProps = {
-    type: 'date',
-  }
+  return (
+    <>
+      <span>{formatDate(value)}</span>
+    </>
+  )
+}
 
-  export default GDate
+GDate.defaultProps = {
+  type: 'date',
+}
+
+export default GDate
+// Make this sub child of Text: Text.Date

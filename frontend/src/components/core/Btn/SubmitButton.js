@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'react-bootstrap'
 import Loader from '../Loader'
 
-const MdButton = ({
+const SubmitButton = ({
   className,
   label,
   icon,
@@ -10,13 +10,17 @@ const MdButton = ({
   onClick,
   disabled,
   loader,
-  type,
   iconRight,
 }) => {
-  const btnProps = { className: className || 'my-3', variant, onClick, type }
+  const btnProps = { className: className, variant, onClick }
   return (
-    <Button {...btnProps} disabled={disabled === 0}>
-      {loader && <Loader size='sm' />}
+    <Button
+      type="submit"
+      {...btnProps}
+      disabled={disabled === 0}
+      className={`${className} mr-2`}
+    >
+      {loader && <Loader size="sm" />}
       {!iconRight && <i className={`${icon} mr-1`} />}
       {label}
       {iconRight && <i className={`${icon} ml-1`} />}
@@ -24,4 +28,4 @@ const MdButton = ({
   )
 }
 
-export default MdButton
+export default SubmitButton
