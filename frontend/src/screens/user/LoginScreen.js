@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../components/core/FormContainer'
-import Message from '../components/core/Message'
-import InputBox from '../components/core/InputBox'
-import { RESET_ICON, SIGN_IN_ICON } from '../constants/iconConstants'
-import { login } from '../actions/userActions'
-import { successLight } from '../inline-styles'
-import SubmitButton from '../components/core/Btn/SubmitButton'
+import FormContainer from '../../components/core/FormContainer'
+import Message from '../../components/core/Message'
+import InputBox from '../../components/core/InputBox'
+import { RESET_ICON, SIGN_IN_ICON } from '../../constants/iconConstants'
+import { login } from '../../actions/userActions'
+import { successLight } from '../../inline-styles'
+import SubmitButton from '../../components/core/Btn/SubmitButton'
 import { Formik, Form } from 'formik'
-import { loginHook } from '../validation/LoginHook'
-import Button from '../components/core/Btn/Button'
+import { loginHook } from '../../validation/LoginHook'
+import Button from '../../components/core/Btn/Button'
 
 const LoginScreen = () => {
   const location = useLocation()
@@ -25,9 +25,9 @@ const LoginScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect)
+      navigate('/home')
     }
-  }, [navigate, userInfo, redirect])
+  }, [navigate, userInfo])
 
   const handleSubmit = (values) => {
     const { email, password } = values

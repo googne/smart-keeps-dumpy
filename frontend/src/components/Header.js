@@ -1,20 +1,11 @@
 import React from 'react'
-import {
-  Container,
-  Navbar,
-  Row,
-  Col,
-  Card,
-  Nav,
-  NavDropdown,
-  Badge,
-} from 'react-bootstrap'
-// import LoginUser from './LoginUser'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../actions/userActions'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -22,12 +13,13 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout())
+    navigate('/')
   }
 
   return (
     <header>
       <Navbar expand="md" className="navbar-dark px-5 py-0 custom-navbar">
-        <Navbar.Brand as={Link} to="/" className="py-2">
+        <Navbar.Brand as={Link} to={userInfo ? '/home' : '/'} className="py-2">
           <span className="logo">D</span>
           <span className="logo-name" title="Smart Keeps">
             Dumpy

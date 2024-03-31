@@ -1,88 +1,49 @@
 import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Switch,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import { Row, Col } from 'react-bootstrap'
 import Footer from './components/Footer'
 import Header from './components/Header'
-import Sidebar from './components/Sidebar'
-import LoginScreen from './screens/LoginScreen'
-import RegisterScreen from './screens/RegisterScreen'
-// import HomeScreen from './screens/HomeScreen'
-// import BankScreen from './screens/BankScreen'
-// import BankDetailScreen from './screens/BankDetailScreen'
-// import SidebarLayout from './layout/SidebarLayout'
+import SidebarLayout from './layout/SidebarLayout'
 import WelcomeScreen from './screens/WelcomeScreen'
+import HomeScreen from './screens/HomeScreen'
+import LoginScreen from './screens/user/LoginScreen'
+import RegisterScreen from './screens/user/RegisterScreen'
+import BankScreen from './screens/bank/BankScreen'
+import BankAddScreen from './screens/bank/BankAddScreen'
+import BankDetailScreen from './screens/bank/BankDetailScreen'
 
 const App = () => {
   return (
     <>
       <Router>
         <Header />
-        <main className="py-3">
+        <main className="p-3">
           <Routes>
             <Route path="/" element={<WelcomeScreen />} exact />
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
-
-            {/* <Route element={<DefaultLayout />}>
-              <Route path="/" element={<WelcomeScreen />} exact />
-              <Route path="/login" element={<LoginScreen />} />
-              <Route path="/register" element={<RegisterScreen />} />
-            </Route> */}
-            {/* <Route element={<SidebarLayout />}>
+            <Route element={<SidebarLayout />}>
               <Route path="/home" element={<HomeScreen />} />
-              <Route
+              <Route path="/bank" element={<BankScreen />} />
+              <Route path="/bank/add" element={<BankAddScreen />} />
+              <Route path="/bank/detail" element={<BankDetailScreen />} />
+
+              {/* <Route
                 path="/bank"
                 render={({ match: { url } }) => (
                   <>
                     <Route path={`${url}/`} element={<BankScreen />} exact />
-                    <Route path={`${url}/add`} element={<BankDetailScreen />} />
+                    <Route path={`${url}/add`} element={<BankAddScreen />} />
+                    <Route
+                      path={`${url}/detail`}
+                      element={<BankDetailScreen />}
+                    />
                   </>
                 )}
-              />
-            </Route> */}
+              /> */}
+            </Route>
           </Routes>
         </main>
-        {/* <Route element={<SidebarLayout />}>
-              <Route path="/" element={HomeScreen} exact />
-              <Route path="/home" element={HomeScreen} />
-              <Route
-                path="/bank"
-                render={({ match: { url } }) => (
-                  <>
-                    <Route path={`${url}/`} element={BankScreen} exact />
-                    <Route path={`${url}/add`} element={BankDetailScreen} />
-                  </>
-                )}
-              />
-            </Route> */}
-        {/* <Row className="m-2">
-          <Col md={2}>
-            <Sidebar />
-          </Col>
-          <Col>
-            <main>
-              <Switch>
-                <Route path="/" element={HomeScreen} exact />
-                <Route path="/home" element={HomeScreen} />
-                <Route
-                  path="/bank"
-                  render={({ match: { url } }) => (
-                    <>
-                      <Route path={`${url}/`} element={BankScreen} exact />
-                      <Route path={`${url}/add`} element={BankDetailScreen} />
-                    </>
-                  )}
-                />
-              </Switch>
-            </main>
-          </Col>
-        </Row> */}
         <Footer />
       </Router>
     </>
