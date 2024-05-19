@@ -1,9 +1,11 @@
 import React from 'react'
 import { ListGroup } from 'react-bootstrap'
 import { Link, useLocation } from 'react-router-dom'
+import { useURLQuery } from '../utils/Url'
 
 const Item = ({ path, name, disabled }) => {
   const { pathname } = useLocation()
+  const query = useURLQuery()
   return (
     <>
       <ListGroup.Item
@@ -11,7 +13,7 @@ const Item = ({ path, name, disabled }) => {
         to={path}
         variant="info"
         action
-        active={pathname.includes(path)}
+        active={pathname.includes(path) || path.includes(query.get('type'))}
         disabled={disabled || false}
       >
         {name}
@@ -19,14 +21,7 @@ const Item = ({ path, name, disabled }) => {
     </>
   )
 }
-const Sidebar = () => {
-  const options = [
-    { path: '/home', name: 'Home' },
-    { path: '/bank', name: 'Bank Details' },
-    { path: '/gmail', name: 'Gmail Accounts' },
-    { path: '/govtids', name: 'Govt. IDs' },
-    { path: '/credentials', name: 'Credentials', disabled: true },
-  ]
+const Sidebar = ({ options }) => {
   return (
     <>
       <ListGroup>
@@ -36,6 +31,16 @@ const Sidebar = () => {
       </ListGroup>
     </>
   )
+}
+
+Sidebar.defaultProps = {
+  options: [
+    { path: '/home', name: 'Home' },
+    { path: '/bank', name: 'Bank Details' },
+    { path: '/gmail', name: 'Gmail Accounts' },
+    { path: '/govtids', name: 'Govt. IDs' },
+    { path: '/credentials', name: 'Credentials', disabled: true },
+  ],
 }
 
 export default Sidebar

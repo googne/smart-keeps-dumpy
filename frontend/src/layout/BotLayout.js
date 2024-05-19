@@ -3,11 +3,17 @@ import { Col, Row } from 'react-bootstrap'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 
-const SidebarLayout = () => {
+const BotLayout = () => {
+  const options = [
+    { path: '/bot', name: 'InputFields' },
+    { path: '/bot/hook', name: 'ValidationHook' },
+    { path: '/bot/rule', name: 'ValidationRule', disabled: true },
+  ]
+
   return (
     <Row>
       <Col md={2}>
-        <Sidebar />
+        <Sidebar options={options} />
       </Col>
       <Col md={10} className="">
         <Outlet />
@@ -16,4 +22,4 @@ const SidebarLayout = () => {
   )
 }
 
-export default SidebarLayout
+export default BotLayout

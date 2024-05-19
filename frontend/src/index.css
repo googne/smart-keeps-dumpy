@@ -1,3 +1,40 @@
+/* root CSS */
+
+#root {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  padding-top: 75px;
+}
+.border-text {
+  top: -20px;
+  position: absolute;
+  background-color: white;
+  font-size: 22px;
+  letter-spacing: 3px;
+  padding: 0 5px;
+  text-align: center;
+}
+/* tabs */
+.nav-tabs a {
+  color: #502c61;
+  font-size: 25px;
+}
+.nav-tabs .nav-link:hover {
+  color: #e2cfec;
+  background-color: #fff;
+  border-color: #e2cfec #e2cfec #fff;
+}
+
+.nav-tabs .nav-link.active {
+  color: #502c61;
+  background-color: #fff;
+  border-color: #9954bb #9954bb #fff;
+}
+
 /* NAVBAR */
 .custom-navbar {
   background-color: #563d7c;
@@ -57,3 +94,5 @@
   letter-spacing: 1px;
   font-size: 18px;
 }
+
+/* DEBUG POV */

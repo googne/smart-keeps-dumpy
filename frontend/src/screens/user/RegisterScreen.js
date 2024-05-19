@@ -10,8 +10,8 @@ import { REGISTER_ICON, RESET_ICON } from '../../constants/iconConstants'
 import SubmitButton from '../../components/core/Btn/SubmitButton'
 import { successLight } from '../../inline-styles'
 import { registerHook } from '../../validation/RegisterHook'
-import FormContainer from '../../components/core/FormContainer'
 import Button from '../../components/core/Btn/Button'
+import FormLayout from '../../layout/FormLayout'
 
 const RegisterScreen = () => {
   const { fields, validationSchema, initialValues, inputFields } = registerHook
@@ -37,7 +37,7 @@ const RegisterScreen = () => {
   }
 
   return (
-    <FormContainer>
+    <FormLayout>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -102,7 +102,7 @@ const RegisterScreen = () => {
           </>
         )}
       </Formik>
-    </FormContainer>
+    </FormLayout>
   )
 }
 

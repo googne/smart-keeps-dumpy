@@ -9,41 +9,40 @@ import HomeScreen from './screens/HomeScreen'
 import LoginScreen from './screens/user/LoginScreen'
 import RegisterScreen from './screens/user/RegisterScreen'
 import BankScreen from './screens/bank/BankScreen'
-import BankAddScreen from './screens/bank/BankAddScreen'
 import BankDetailScreen from './screens/bank/BankDetailScreen'
+import { Col, Container, Row } from 'react-bootstrap'
+import BotScreen from './bot/BotScreen'
+import BotLayout from './layout/BotLayout'
+import BankAddScreen from './screens/bank/addBank/BankAddScreen'
 
 const App = () => {
   return (
     <>
       <Router>
-        <Header />
-        <main className="p-3">
-          <Routes>
-            <Route path="/" element={<WelcomeScreen />} exact />
-            <Route path="/login" element={<LoginScreen />} />
-            <Route path="/register" element={<RegisterScreen />} />
-            <Route element={<SidebarLayout />}>
-              <Route path="/home" element={<HomeScreen />} />
-              <Route path="/bank" element={<BankScreen />} />
-              <Route path="/bank/add" element={<BankAddScreen />} />
-              <Route path="/bank/detail" element={<BankDetailScreen />} />
-
-              {/* <Route
-                path="/bank"
-                render={({ match: { url } }) => (
-                  <>
-                    <Route path={`${url}/`} element={<BankScreen />} exact />
-                    <Route path={`${url}/add`} element={<BankAddScreen />} />
-                    <Route
-                      path={`${url}/detail`}
-                      element={<BankDetailScreen />}
-                    />
-                  </>
-                )}
-              /> */}
-            </Route>
-          </Routes>
-        </main>
+        <Container fluid>
+          <Header />
+          <Row className="m-1">
+            <Col>
+              <Routes>
+                <Route path="/" element={<WelcomeScreen />} exact />
+                <Route path="/bot" element={<BotScreen />} exact />
+                <Route path="/login" element={<LoginScreen />} />
+                <Route path="/register" element={<RegisterScreen />} />
+                <Route element={<SidebarLayout />}>
+                  <Route path="/home" element={<HomeScreen />} />
+                  {/* <Route path="/bank" element={<AddBankScreen />} /> */}
+                  <Route path="/bank/add" element={<BankAddScreen />} />
+                  <Route path="/bank/detail" element={<BankDetailScreen />} />
+                </Route>
+                {/* <Route element={<BotLayout />}>
+                <Route path="/bot" element={<BotScreen />} exact />
+                <Route path="/bot/:type" element={<BotScreen />} />
+                <Route path="/bot/:type" element={<BotScreen />} />
+              </Route> */}
+              </Routes>
+            </Col>
+          </Row>
+        </Container>
         <Footer />
       </Router>
     </>

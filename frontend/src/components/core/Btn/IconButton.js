@@ -1,7 +1,26 @@
 import React from 'react'
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
-const IconButton = () => {
-  return <div>IconButton</div>
+// It will show only icon as button: starIcon, deleteIcon
+const IconButton = ({ size, icon, variant, title, onClick }) => {
+  const btnProps = { size, icon, variant }
+  return (
+    <>
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip id={`tooltip-${variant}`}>{title}</Tooltip>}
+      >
+        {/* {icon && (
+          <i
+            className={`${icon} text-${variant} fa-${size}`}
+            onClick={onClick}
+          ></i>
+        )} */}
+        {/* <Button {...btnProps}></Button> */}
+        <Button {...btnProps}>{icon && <i className={icon}></i>}</Button>
+      </OverlayTrigger>
+    </>
+  )
 }
 
 export default IconButton

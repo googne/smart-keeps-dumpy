@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import { email, password } from './ValidationRule'
-import { email as emailField, password as passwordField } from './InputFields'
+import { getInputFieldParams } from '../utils/formInputUtils'
 
 export const loginHook = {
   fields: ['email', 'password'],
@@ -13,7 +13,7 @@ export const loginHook = {
     password: '',
   },
   inputFields: {
-    email: emailField,
-    password: passwordField,
+    email: getInputFieldParams('email', 'Email Address'),
+    password: getInputFieldParams('password'),
   },
 }

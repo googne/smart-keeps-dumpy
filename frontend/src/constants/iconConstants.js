@@ -1,6 +1,7 @@
 const CHECK_CIRCLE = 'fa fa-check-circle'
+const PLUS_CIRCLE = 'fa fa-plus-circle'
 
-export const EDIT_ICON = 'fa fa-edit'
+export const EDIT_ICON = 'far fa-edit'
 export const CONTINUE_ICON = 'fa fa-arrow-circle-right'
 export const CART_ICON = 'fa fa-cart-plus'
 export const PLACE_ORDER_ICON = CHECK_CIRCLE
@@ -9,10 +10,16 @@ export const SIGN_IN_ICON = 'fa fa-sign-in-alt'
 export const SIGN_OUT_ICON = 'fa fa-sign-out-alt'
 export const REGISTER_ICON = 'fas fa-user-plus'
 export const DETAIL_ICON = 'fa fa-info'
-export const CREATE_PRODUCT_ICON = 'fa fa-plus-circle'
-export const BACK_ICON = 'fa fa-arrow-left'
+export const CREATE_PRODUCT_ICON = PLUS_CIRCLE
 export const SUBMIT_ICON = CHECK_CIRCLE
 export const SEARCH_ICON = 'fa fa-search'
 export const RESET_ICON = 'fas fa-redo-alt'
 export const WARNING_ICON = 'fas fa-exclamation-circle'
 export const CHECK_ICON = 'fas fa-check-circle'
+export const ADD_ICON = PLUS_CIRCLE
+export const PREVIOUS_ICON = 'fa fa-arrow-left'
+export const NEXT_ICON = 'fa fa-arrow-right'
+export const CANCEL_ICON = 'fas fa-times-circle'
+export const TRASH_ICON = 'far fa-trash-alt'
+export const STAR_ICON = 'fa fa-star'
+export const SAVE_ICON = 'fas fa-database'

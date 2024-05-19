@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node backend/server",
     "build": "npm i",
-    "server": "nodemon backend/server",
+    "server": "nodemon backend/server --ignore client",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "data:import": "node backend/seeder",
@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/googne/l4-gshop.git"
+    "url": "git+https://github.com/googne/smart-keeps-dumpy.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/googne/l4-gshop/issues"
+    "url": "https://github.com/googne/smart-keeps-dumpy/issues"
   },
-  "homepage": "https://github.com/googne/l4-gshop#readme",
+  "homepage": "https://github.com/googne/smart-keeps-dumpy.git#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",

@@ -18,7 +18,11 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar expand="md" className="navbar-dark px-5 py-0 custom-navbar">
+      <Navbar
+        fixed="top"
+        expand="md"
+        className="navbar-dark px-5 py-0 custom-navbar"
+      >
         <Navbar.Brand as={Link} to={userInfo ? '/home' : '/'} className="py-2">
           <span className="logo">D</span>
           <span className="logo-name" title="Smart Keeps">

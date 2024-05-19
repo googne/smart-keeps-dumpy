@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../../components/core/FormContainer'
+import FormLayout from '../../layout/FormLayout'
 import Message from '../../components/core/Message'
 import InputBox from '../../components/core/InputBox'
 import { RESET_ICON, SIGN_IN_ICON } from '../../constants/iconConstants'
@@ -18,7 +18,6 @@ const LoginScreen = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { fields, validationSchema, initialValues, inputFields } = loginHook
-
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error: userLoginError, userInfo } = userLogin
 
@@ -36,7 +35,7 @@ const LoginScreen = () => {
 
   return (
     <>
-      <FormContainer size={6}>
+      <FormLayout size={6}>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -105,22 +104,9 @@ const LoginScreen = () => {
             </>
           )}
         </Formik>
-      </FormContainer>
+      </FormLayout>
     </>
   )
 }
-
-// const validationSchema = yup.object().shape({
-//   email: yup.string().required('required').email('invalid email'),
-//   password: yup
-//     .string()
-//     .required('required')
-//     .min(3, 'password is too small')
-//     .max(8, 'password is too large'),
-// })
-// const initialValues = {
-//   email: '',
-//   password: '',
-// }
 
 export default LoginScreen

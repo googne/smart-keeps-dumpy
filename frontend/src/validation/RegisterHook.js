@@ -1,16 +1,16 @@
 import * as yup from 'yup'
-import { name, email, password, confirmPassword } from './ValidationRule'
 import {
-  name as nameField,
-  email as emailField,
-  password as passwordField,
-  confirmPassword as confirmPasswordField,
-} from './InputFields'
+  stringRequired,
+  email,
+  password,
+  confirmPassword,
+} from './ValidationRule'
+import { getInputFieldParams } from '../utils/formInputUtils'
 
 export const registerHook = {
   fields: ['name', 'email', 'password', 'confirmPassword'],
   validationSchema: yup.object().shape({
-    name,
+    name: stringRequired,
     email,
     password,
     confirmPassword,
@@ -22,9 +22,9 @@ export const registerHook = {
     confirmPassword: '',
   },
   inputFields: {
-    name: nameField,
-    email: emailField,
-    password: passwordField,
-    confirmPassword: confirmPasswordField,
+    name: getInputFieldParams('name'),
+    email: getInputFieldParams('email', 'Email Address'),
+    password: getInputFieldParams('password'),
+    confirmPassword: getInputFieldParams('confirmPassword'),
   },
 }
