@@ -4,15 +4,20 @@ import InputError from './InputError'
 import { ErrorMessage, getIn } from 'formik'
 import Required from './Required'
 
-const ArrayInputBox = ({ label, field, form, required, ...props }) => {
+const ArrayInputBox = ({
+  label,
+  field,
+  form: { errors, touched },
+  required,
+  ...props
+}) => {
   const { name } = field
-  const { errors, touched } = form
-  // console.log(name, required)
 
   const containErrors = (name) => {
     const error = getIn(errors, name)
     return getIn(touched, name) && error ? error : null
   }
+
   return (
     <>
       <Form.Group controlId={name} className="mb-3 mt-0">

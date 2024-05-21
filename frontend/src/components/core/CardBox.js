@@ -14,12 +14,7 @@ const CardBox = ({ variant, header, style, children }) => {
         <span className={`border-text ml-5 text-${variant || 'success'}`}>
           {header || 'UPI Detail'}
         </span>
-        <Card.Body
-          className="py-2 px-4"
-          style={{ height: '500px', overflowY: 'auto' }}
-        >
-          {children}
-        </Card.Body>
+        <Card.Body className="py-2 px-4">{children}</Card.Body>
       </Card>
     </>
   )

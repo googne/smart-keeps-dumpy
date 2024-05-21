@@ -1,4 +1,4 @@
-import { Field, FieldArray } from 'formik'
+import { ErrorMessage, Field, FieldArray, insert } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Table } from 'react-bootstrap'
 import Button from '../../../components/core/Btn/Button'
@@ -14,6 +14,8 @@ import TableInputBox from '../../../components/core/TableInputBox'
 import Required from '../../../components/core/Required'
 import CardBox from '../../../components/core/CardBox'
 import Divider from '../../../components/core/Divider'
+import InputError from '../../../components/core/InputError'
+import { clean, insertAt, removeAt } from '../../../utils/arrayUtils'
 
 const Dependent = ({
   parent,
@@ -23,52 +25,144 @@ const Dependent = ({
   validation,
 }) => {
   // Dependent: Show as Tabular Form
-  console.log('inputFields', inputFields)
+  // console.log(validation)
   const { errors, values, initialValues } = validation
-  // console.log('values', values)
-  // console.log('initialValues', initialValues)
-  const [isCurrentItemSaved, setCurrentItemSaved] = useState([false])
+  const [arrayErrors, setArrayErrors] = useState({})
+  const [arrayElement, setArrayElement] = useState({
+    saved: [false],
+    disabled: [false],
+    disabledGlobal: false,
+  })
 
   useEffect(() => {
-    // console.log(isCurrentItemSaved)
-  }, [isCurrentItemSaved])
+    const currentErrors = errors?.[parent]?.[keyName]
+    mapArrayDisabled(currentErrors)
+    if (currentErrors && currentErrors instanceof Array) {
+      mapArrayError(currentErrors)
+    } else {
+      setArrayErrors({})
+    }
+  }, [errors])
+
+  const mapArrayError = (currentErrors) => {
+    fields.map((field) => {
+      if (
+        !arrayErrors[field] ||
+        currentErrors.length != arrayErrors[field].length
+      ) {
+        arrayErrors[field] = Array(currentErrors.length).fill(undefined)
+      }
+
+      for (let idx = 0; idx < currentErrors.length; idx += 1) {
+        arrayErrors[field][idx] =
+          currentErrors[idx] && currentErrors[idx][field]
+            ? currentErrors[idx][field]
+            : null
+      }
+      arrayErrors[field] = clean(arrayErrors[field])
+    })
+    setArrayErrors(arrayErrors)
+  }
+
+  const mapArrayDisabled = (currentErrors) => {
+    if (currentErrors) {
+      for (let idx = 0; idx < currentErrors.length; idx += 1) {
+        setArrayElement({
+          ...arrayElement,
+          disabled: insertAt(
+            arrayElement.disabled,
+            idx,
+            currentErrors[idx] ? true : false
+          ),
+          disabledGlobal: true,
+        })
+      }
+    } else {
+      setArrayElement({
+        ...arrayElement,
+        disabled: Array(arrayElement.disabled.length).fill(false),
+        disabledGlobal: false,
+      })
+    }
+  }
+
+  // console.log('errors', errors)
 
   const handleArraySave = (idx) => {
-    setCurrentItemSaved([
-      ...isCurrentItemSaved.slice(0, idx),
-      true,
-      ...isCurrentItemSaved.slice(idx + 1, isCurrentItemSaved.length),
-    ])
+    setArrayElement({
+      ...arrayElement,
+      disabled: insertAt(arrayElement.disabled, idx, true),
+      saved: insertAt(arrayElement.saved, idx, true),
+    })
+
+    const unique = new Set(arrayElement.disabled)
+    arrayElement.disabledGlobal = unique.length > 1 || unique[0]
   }
 
   const handleArrayEdit = (idx) => {
-    setCurrentItemSaved([
-      ...isCurrentItemSaved.slice(0, idx),
-      false,
-      ...isCurrentItemSaved.slice(idx + 1, isCurrentItemSaved.length),
-    ])
+    setArrayElement({
+      ...arrayElement,
+      disabled: insertAt(arrayElement.disabled, idx, false),
+      saved: insertAt(arrayElement.saved, idx, false),
+    })
+    const unique = new Set(arrayElement.disabled)
+    arrayElement.disabledGlobal = unique.length > 1 || unique[0]
   }
-  const handleArrayReset = (arrayHelpers, idx, initialValues) => {
-    console.log(idx, arrayHelpers, initialValues)
-    console.log(idx, arrayHelpers, initialValues)
-  }
-  const handleArrayRemove = (arrayHelpers, idx) => {
-    setCurrentItemSaved([
-      ...isCurrentItemSaved.slice(0, idx),
-      ...isCurrentItemSaved.slice(idx + 1, isCurrentItemSaved.length),
-    ])
 
+  const handleArrayRemove = (arrayHelpers, idx) => {
     arrayHelpers.remove(idx)
+    setArrayElement({
+      ...arrayElement,
+      disabled: clean(insertAt(arrayElement.disabled, idx, null)),
+      saved: clean(insertAt(arrayElement.disabled, idx, null)),
+    })
+    const unique = new Set(arrayElement.disabled)
+    arrayElement.disabledGlobal = unique.length > 1 || unique[0]
   }
+
+  const handleAddMoreUPI = (arrayHelpers) => {
+    arrayHelpers.push(initialValues[parent][keyName][0])
+    setArrayElement({
+      ...arrayElement,
+      disabled: [...arrayElement.disabled, null],
+      saved: [...arrayElement.saved, null],
+    })
+  }
+
   return (
     <>
-      <CardBox variant="info" style={{ height: '49%' }}>
+      <CardBox variant="info" style={{ height: '93%' }}>
         <FieldArray
           name={`${parent}.${keyName}`}
           render={(arrayHelpers) => {
             const objArray = values[parent][keyName]
             return (
               <>
+                <Row>
+                  <Col md={{ span: 2, offset: 8 }}>
+                    {/* <Button
+                      variant="outline-danger"
+                      icon={SAVE_ICON}
+                      label="Save All UPI"
+                      className="btn-sm form-control"
+                      size="lg"
+                      disabled={arrayElement.disabledGlobal}
+                      onClick={() => saveAllUPI(objArray.length)}
+                    /> */}
+                  </Col>
+                  <Col md={{ span: 2 }}>
+                    <Button
+                      variant="outline-warning"
+                      icon={ADD_ICON}
+                      label="Add More UPI"
+                      className="btn-sm form-control"
+                      size="lg"
+                      title="Only 3 UPIs are allowed for one Bank A/C"
+                      disabled={objArray.length > 2}
+                      onClick={() => handleAddMoreUPI(arrayHelpers)}
+                    />
+                  </Col>
+                </Row>
                 <Table
                   striped
                   bordered
@@ -78,12 +172,26 @@ const Dependent = ({
                   className="mt-2 text-center"
                 >
                   <thead>
-                    <tr className="text-center text-info">
+                    <tr className="text-info">
                       <th style={{ width: '3%' }}>#</th>
                       {fields.map((field, idx) => (
-                        <th style={{ width: '26%' }} key={`tr${idx}`}>
+                        <th
+                          style={{ width: '26%' }}
+                          key={`tr${idx}`}
+                          className="text-left"
+                        >
                           {inputFields[field].label}{' '}
                           {inputFields[field].required && <Required />}
+                          <span style={{ float: 'right' }}>
+                            {arrayErrors[field] &&
+                              arrayErrors[field].length > 0 && (
+                                <InputError title={arrayErrors[field]}>
+                                  {arrayErrors[field].length == 1
+                                    ? arrayErrors[field][0]
+                                    : 'Multiple Errors'}
+                                </InputError>
+                              )}
+                          </span>
                         </th>
                       ))}
                       <th style={{ width: '19%' }}>Activity</th>
@@ -101,12 +209,15 @@ const Dependent = ({
                                 key={`td${idx}`}
                                 style={{ verticalAlign: 'middle' }}
                               >
-                                {!isCurrentItemSaved[arrIdx] ? (
-                                  <Field
-                                    {...inputFields[field]}
-                                    name={`${parent}.${keyName}.${arrIdx}.${field}`}
-                                    component={TableInputBox}
-                                  />
+                                {/* {!isCurrentItemSaved[arrIdx] ? ( */}
+                                {!arrayElement.saved[arrIdx] ? (
+                                  <>
+                                    <Field
+                                      {...inputFields[field]}
+                                      name={`${parent}.${keyName}.${arrIdx}.${field}`}
+                                      component={TableInputBox}
+                                    />
+                                  </>
                                 ) : (
                                   <p
                                     style={{
@@ -124,8 +235,15 @@ const Dependent = ({
                                 icon={CHECK_ICON}
                                 variant="success"
                                 title="Save"
+                                // label={`${validation.isValid}`}
                                 onClick={() => handleArraySave(arrIdx)}
-                                disabled={isCurrentItemSaved[arrIdx]}
+                                disabled={arrayElement.disabled[arrIdx]}
+                                // disabled={isCurrentItemSaved[arrIdx]}
+                                // disabled={
+                                //   isCurrentItemSaved[arrIdx] &&
+                                //   errors?.[parent]?.[keyName]?.[arrIdx]
+                                //     ?.length > 0
+                                // }
                               />
 
                               <Button
@@ -133,7 +251,8 @@ const Dependent = ({
                                 variant="primary"
                                 title="Edit"
                                 onClick={() => handleArrayEdit(arrIdx)}
-                                disabled={!isCurrentItemSaved[arrIdx]}
+                                disabled={!arrayElement.saved[arrIdx]}
+                                // disabled={!isCurrentItemSaved[arrIdx]}
                               />
 
                               <Button
@@ -146,7 +265,8 @@ const Dependent = ({
                                     initialValues[parent][keyName][0]
                                   )
                                 }
-                                disabled={isCurrentItemSaved[arrIdx]}
+                                disabled={arrayElement.saved[arrIdx]}
+                                // disabled={isCurrentItemSaved[arrIdx]}
                               />
 
                               <Button
@@ -164,36 +284,6 @@ const Dependent = ({
                       : null}
                   </tbody>
                 </Table>
-                <Row>
-                  <Col md={{ span: 2 }}>
-                    <Button
-                      variant="outline-danger"
-                      icon={SAVE_ICON}
-                      label="Save All UPI"
-                      className="btn-sm form-control"
-                      size="lg"
-                      // onClick={addItem(arrayHelpers)}
-                      onClick={() =>
-                        arrayHelpers.insert(
-                          0,
-                          initialValues[parent][keyName][0]
-                        )
-                      }
-                    />
-                  </Col>
-                  <Col md={{ span: 2, offset: 8 }}>
-                    <Button
-                      variant="outline-warning"
-                      icon={ADD_ICON}
-                      label="Add More UPI"
-                      className="btn-sm form-control"
-                      size="lg"
-                      onClick={() =>
-                        arrayHelpers.push(initialValues[parent][keyName][0])
-                      }
-                    />
-                  </Col>
-                </Row>
               </>
             )
           }}

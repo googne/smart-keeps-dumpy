@@ -4,14 +4,14 @@ import { Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormLayout from '../../layout/FormLayout'
 import Message from '../../components/core/Message'
-import InputBox from '../../components/core/InputBox'
 import { RESET_ICON, SIGN_IN_ICON } from '../../constants/iconConstants'
 import { login } from '../../actions/userActions'
 import { successLight } from '../../inline-styles'
 import SubmitButton from '../../components/core/Btn/SubmitButton'
-import { Formik, Form } from 'formik'
-import { loginHook } from '../../validation/LoginHook'
+import { Formik, Form, Field } from 'formik'
+import { loginHook } from '../../validation/HelperHook'
 import Button from '../../components/core/Btn/Button'
+import ArrayInputBox from '../../components/core/ArrayInputBox'
 
 const LoginScreen = () => {
   const location = useLocation()
@@ -63,11 +63,18 @@ const LoginScreen = () => {
                       <Message variant="danger">{userLoginError}</Message>
                     )}
                     {fields.map((field, index) => (
-                      <InputBox
+                      <Field
                         key={index}
                         {...inputFields[field]}
-                        {...validation}
+                        name={`${field}`}
+                        component={ArrayInputBox}
                       />
+
+                      // <InputBox
+                      //   key={index}
+                      //   {...inputFields[field]}
+                      //   {...validation}
+                      // />
                     ))}
                   </Card.Body>
                   <Card.Footer style={{ backgroundColor: successLight }}>

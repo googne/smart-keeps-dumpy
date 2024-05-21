@@ -2,16 +2,16 @@ import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Card, Col, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { Formik, Form } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import Message from '../../components/core/Message'
 import { register } from '../../actions/userActions'
-import InputBox from '../../components/core/InputBox'
 import { REGISTER_ICON, RESET_ICON } from '../../constants/iconConstants'
 import SubmitButton from '../../components/core/Btn/SubmitButton'
 import { successLight } from '../../inline-styles'
-import { registerHook } from '../../validation/RegisterHook'
+import { registerHook } from '../../validation/HelperHook'
 import Button from '../../components/core/Btn/Button'
 import FormLayout from '../../layout/FormLayout'
+import ArrayInputBox from '../../components/core/ArrayInputBox'
 
 const RegisterScreen = () => {
   const { fields, validationSchema, initialValues, inputFields } = registerHook
@@ -67,7 +67,11 @@ const RegisterScreen = () => {
                   <Row>
                     {fields.map((field, index) => (
                       <Col key={index} md={6}>
-                        <InputBox {...inputFields[field]} {...validation} />
+                        <Field
+                          {...inputFields[field]}
+                          name={`${field}`}
+                          component={ArrayInputBox}
+                        />
                       </Col>
                     ))}
                   </Row>
@@ -93,7 +97,7 @@ const RegisterScreen = () => {
                       to={redirect ? `/login?redirect=${redirect}` : '/login'}
                       className="text-info"
                     >
-                      <strong>Register</strong>
+                      <strong>Login</strong>
                     </Link>
                   </span>
                 </Card.Footer>

@@ -198,17 +198,14 @@ export const addBankHook = {
     cards: {
       eventKey: 'tab1',
       title: 'Card Detail',
-      disabled: true,
     },
     credentials: {
       eventKey: 'tab2',
       title: 'Bank Credentials',
-      disabled: true,
     },
     preview: {
       eventKey: 'tab3',
       title: 'Preview',
-      disabled: true,
     },
   },
   tabContent: {

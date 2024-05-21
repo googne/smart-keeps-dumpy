@@ -1,16 +1,16 @@
 import * as yup from 'yup'
 
 // Global Declaration yupDatatype
-export const stringRequired = yup.string().required('required')
+export const stringRequired = yup.string().required('Required')
 export const onlyNumber = yup
   .number()
   .typeError('Allowed number only')
   .integer('Allowed integer number only')
   .positive('Allowed Positive number only')
-export const onlyNumberRequired = onlyNumber.required('required')
+export const onlyNumberRequired = onlyNumber.required('Required')
 
 // Custom Declaration yupDatatype
-export const email = stringRequired.email('invalid email')
+export const email = stringRequired.email('Invalid email')
 export const password = stringRequired
   .min(3, 'Password is too small')
   .max(8, 'Password is too large')

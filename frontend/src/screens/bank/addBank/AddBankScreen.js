@@ -15,22 +15,21 @@ import SubmitButton from '../../../components/core/Btn/SubmitButton'
 import { Formik, Form, Field } from 'formik'
 import Button from '../../../components/core/Btn/Button'
 import ComponentLayout from '../../../layout/ComponentLayout'
-import { addBankHook } from '../../../validation/AddBankHook'
+import { addBankHook } from '../../../validation/HelperHook'
 import { extractDigit } from '../../../utils/stringUtils'
 import ArrayInputBox from '../../../components/core/ArrayInputBox'
 import { containErrors } from '../../../utils/formikUtils'
 import TabularForm from '../../../components/TabularForm'
-import { mapRequiredFields } from '../../../utils/ValidationSchemaProvider'
 import Dependent from './Dependent'
 
-const BankAddScreen = () => {
+const AddBankScreen = () => {
   const [activeTab, setActiveTab] = useState('tab0')
   const [prevBtnDisable, setPrevBtnDisable] = useState(true)
   const [nextBtnDisable, setNextBtnDisable] = useState(false)
   const { tabNames, tabParams, tabContent, initialValues, validationSchema } =
     addBankHook
 
-  console.log(addBankHook)
+  // console.log(addBankHook)
   const [apiValues, setApiValues] = useState(initialValues)
   let intialFormData = { validated: false }
   tabNames.map((tabName, _) => {
@@ -54,7 +53,6 @@ const BankAddScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    mapRequiredFields(validationSchema, tabContent)
     setApiValues({
       ...initialValues['bankDetails'],
       cards: [initialValues.cards],
@@ -84,14 +82,14 @@ const BankAddScreen = () => {
 
   const watchForm = () => {}
   const handleSave = (validation, keyName) => {
-    const { initialValues, values, errors } = validation
+    const { initialValues, values } = validation
     if (!containErrors(validation, keyName)) {
-      const existData = apiValues[keyName]
+      const oldData = apiValues?.keyName ? apiValues.keyName : []
       setApiValues({
         ...apiValues,
-        [keyName]: [...existData, values[keyName]],
+        [keyName]: [...oldData, values[keyName]],
       })
-      values[keyName] = initialValues[keyName]
+      // values[keyName] = initialValues[keyName]
     }
   }
 
@@ -101,13 +99,12 @@ const BankAddScreen = () => {
   }
 
   const handleSaveNextTab = (validation) => {
-    console.log(validation)
     const tabIdx = extractDigit(activeTab)
     const keyName = tabNames[tabIdx]
-    if (containErrors(validation, keyName)) {
+    if (!containErrors(validation, keyName)) {
       handleSave(validation, keyName)
       const nextTab = getValidTab(tabIdx, 1)
-      tabParams[keyName[`tab${nextTab}`]].disabled = true
+      // tabParams[keyName[`tab${nextTab}`]].disabled = true
       setActiveTab(`tab${nextTab}`)
     }
 
@@ -131,7 +128,7 @@ const BankAddScreen = () => {
     label: 'Add UPI',
   })
 
-  const handleBankUPI = () => {
+  const handleBankUPI = (values) => {
     if (showUpi) {
       setBankUPIButton({
         variant: 'outline-warning',
@@ -139,6 +136,7 @@ const BankAddScreen = () => {
         label: 'Add UPI',
       })
       setShowUpi(false)
+      values.bankDetail.bankUPIs = []
     } else {
       setBankUPIButton({
         variant: 'outline-danger',
@@ -146,6 +144,7 @@ const BankAddScreen = () => {
         label: 'Remove UPI',
       })
       setShowUpi(true)
+      values.bankDetail.bankUPIs = [initialValues.bankDetail.bankUPIs[0]]
     }
   }
 
@@ -219,7 +218,7 @@ const BankAddScreen = () => {
                             >
                               <Card.Body
                                 className="py-2 px-4"
-                                style={{ height: '525px', overflowY: 'auto' }}
+                                style={{ height: '525px', overflowY: 'hidden' }}
                               >
                                 <Row>
                                   {tabContent[tabName].fields &&
@@ -247,7 +246,9 @@ const BankAddScreen = () => {
                                         className="btn-sm form-control"
                                         size="lg"
                                         style={{ marginTop: '28px' }}
-                                        onClick={() => handleBankUPI()}
+                                        onClick={() =>
+                                          handleBankUPI(validation.values)
+                                        }
                                       />
                                     </Col>
                                   )}
@@ -260,9 +261,9 @@ const BankAddScreen = () => {
                                         className="btn-sm form-control"
                                         size="lg"
                                         style={{ marginTop: '28px' }}
-                                        onClick={() =>
-                                          handleSave(validation, tabName)
-                                        }
+                                        // onClick={() =>
+                                        //   handleSave(validation, tabName)
+                                        // }
                                       />
                                     </Col>
                                   )}
@@ -353,4 +354,4 @@ const BankAddScreen = () => {
   )
 }
 
-export default BankAddScreen
+export default AddBankScreen

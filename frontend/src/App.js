@@ -13,7 +13,7 @@ import BankDetailScreen from './screens/bank/BankDetailScreen'
 import { Col, Container, Row } from 'react-bootstrap'
 import BotScreen from './bot/BotScreen'
 import BotLayout from './layout/BotLayout'
-import BankAddScreen from './screens/bank/addBank/BankAddScreen'
+import AddBankScreen from './screens/bank/addBank/AddBankScreen'
 
 const App = () => {
   return (
@@ -30,8 +30,7 @@ const App = () => {
                 <Route path="/register" element={<RegisterScreen />} />
                 <Route element={<SidebarLayout />}>
                   <Route path="/home" element={<HomeScreen />} />
-                  {/* <Route path="/bank" element={<AddBankScreen />} /> */}
-                  <Route path="/bank/add" element={<BankAddScreen />} />
+                  <Route path="/bank/add" element={<AddBankScreen />} />
                   <Route path="/bank/detail" element={<BankDetailScreen />} />
                 </Route>
                 {/* <Route element={<BotLayout />}>

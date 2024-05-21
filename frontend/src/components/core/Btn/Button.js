@@ -30,13 +30,13 @@ const RefBtn = ({
     </ReactButton>
   )
 }
-const Button = ({ title, ...props }) => {
+const Button = ({ title, titlePlace, ...props }) => {
   return (
     <>
       {!props.disabled && title ? (
         <>
           <OverlayTrigger
-            placement="top"
+            placement={titlePlace || 'top'}
             overlay={<Tooltip id={`tooltip-${props.variant}`}>{title}</Tooltip>}
           >
             <RefBtn {...props} />

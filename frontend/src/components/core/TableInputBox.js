@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, OverlayTrigger, Tooltip } from 'react-bootstrap'
 import InputError from './InputError'
 import { ErrorMessage, getIn } from 'formik'
 
@@ -13,6 +13,7 @@ const TableInputBox = ({ label, field, form, ...props }) => {
     const error = getIn(errors, name)
     return getIn(touched, name) && error ? error : null
   }
+  // console.log(containErrors(name))
   return (
     <>
       <Form.Group controlId={name} className="mt-0 mb-0">
@@ -26,7 +27,9 @@ const TableInputBox = ({ label, field, form, ...props }) => {
           {...field}
           {...props}
           isInvalid={containErrors(name)}
-        ></Form.Control>
+          title={containErrors(name) && containErrors(name)}
+          // onChange={() => onChange}
+        />
       </Form.Group>
     </>
   )

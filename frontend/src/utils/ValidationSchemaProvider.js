@@ -34,29 +34,38 @@
 // }
 
 export const mapRequiredFields = (schema, inputFields) => {
+  // console.log('schema', schema)
+  // console.log('inputFields', inputFields)
   const parentFields = schema.describe().fields
-  // console.log(parentFields)
-  Object.entries(parentFields).forEach(
-    ([parentField, { fields: childFields }]) => {
-      Object.entries(childFields).forEach(([childField, childFieldObj]) => {
-        if (childField === 'bankUPIs') {
-          Object.entries(childFieldObj.innerType.fields).forEach(
-            ([subChildField, { optional }]) => {
-              inputFields[parentField].dependent.inputFields[subChildField] = {
-                ...inputFields[parentField].dependent.inputFields[
-                  subChildField
-                ],
-                required: !optional,
+  Object.entries(parentFields).forEach(([parentField, parentFieldObj]) => {
+    if ('fields' in parentFieldObj) {
+      Object.entries(parentFieldObj.fields).forEach(
+        ([childField, childFieldObj]) => {
+          if (childField === 'bankUPIs') {
+            Object.entries(childFieldObj.innerType.fields).forEach(
+              ([subChildField, { optional }]) => {
+                inputFields[parentField].dependent.inputFields[subChildField] =
+                  {
+                    ...inputFields[parentField].dependent.inputFields[
+                      subChildField
+                    ],
+                    required: !optional,
+                  }
               }
+            )
+          } else {
+            inputFields[parentField].inputFields[childField] = {
+              ...inputFields[parentField].inputFields[childField],
+              required: !childFieldObj.optional,
             }
-          )
-        } else {
-          inputFields[parentField].inputFields[childField] = {
-            ...inputFields[parentField].inputFields[childField],
-            required: !childFieldObj.optional,
           }
         }
-      })
+      )
+    } else if ('optional' in parentFieldObj) {
+      inputFields[parentField] = {
+        ...inputFields[parentField],
+        required: !parentFieldObj.optional,
+      }
     }
-  )
+  })
 }
