@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, FieldArray, insert } from 'formik'
+import { Field, FieldArray } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Table } from 'react-bootstrap'
 import Button from '../../../components/core/Btn/Button'
@@ -7,15 +7,13 @@ import {
   CHECK_ICON,
   EDIT_ICON,
   RESET_ICON,
-  SAVE_ICON,
   TRASH_ICON,
 } from '../../../constants/iconConstants'
-import TableInputBox from '../../../components/core/TableInputBox'
 import Required from '../../../components/core/Required'
 import CardBox from '../../../components/core/CardBox'
-import Divider from '../../../components/core/Divider'
 import InputError from '../../../components/core/InputError'
-import { clean, insertAt, removeAt } from '../../../utils/arrayUtils'
+import { clean, insertAt } from '../../../utils/arrayUtils'
+import InputBox from '../../../components/core/formInput/InputBox'
 
 const Dependent = ({
   parent,
@@ -209,13 +207,13 @@ const Dependent = ({
                                 key={`td${idx}`}
                                 style={{ verticalAlign: 'middle' }}
                               >
-                                {/* {!isCurrentItemSaved[arrIdx] ? ( */}
                                 {!arrayElement.saved[arrIdx] ? (
                                   <>
                                     <Field
                                       {...inputFields[field]}
                                       name={`${parent}.${keyName}.${arrIdx}.${field}`}
-                                      component={TableInputBox}
+                                      display="tabular"
+                                      component={InputBox}
                                     />
                                   </>
                                 ) : (

@@ -45,7 +45,7 @@ const TabularForm = (props) => {
     //                     <Field
     //                       {...inputFields[field]}
     //                       name={`${parent}.${keyName}.${arrIdx}.${field}`}
-    //                       component={TableInputBox}
+    //                       component={TableTextInput}
     //                     />
     //                   ) : (
     //                     // <h4>{`${values}.${parent}.${keyName}.${arrIdx}.${field}`}</h4>
@@ -54,7 +54,7 @@ const TabularForm = (props) => {
     //                   {/* <Field
     //                             {...inputFields[field]}
     //                             name={`${parent}.${keyName}.${arrIdx}.${field}`}
-    //                             component={TableInputBox}
+    //                             component={TableTextInput}
     //                           /> */}
     //                 </td>
     //               ))}

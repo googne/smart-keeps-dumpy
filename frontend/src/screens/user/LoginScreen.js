@@ -11,7 +11,7 @@ import SubmitButton from '../../components/core/Btn/SubmitButton'
 import { Formik, Form, Field } from 'formik'
 import { loginHook } from '../../validation/HelperHook'
 import Button from '../../components/core/Btn/Button'
-import ArrayInputBox from '../../components/core/ArrayInputBox'
+import InputBox from '../../components/core/formInput/InputBox'
 
 const LoginScreen = () => {
   const location = useLocation()
@@ -67,7 +67,7 @@ const LoginScreen = () => {
                         key={index}
                         {...inputFields[field]}
                         name={`${field}`}
-                        component={ArrayInputBox}
+                        component={InputBox}
                       />
 
                       // <InputBox

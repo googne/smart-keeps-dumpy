@@ -12,7 +12,7 @@ const Required = () => {
       className={`${STAR_ICON} text-danger`}
       style={cssStyle}
       title="required"
-    ></i>
+    />
   )
 }
 

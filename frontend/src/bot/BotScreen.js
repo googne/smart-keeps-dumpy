@@ -37,8 +37,8 @@ const BotScreen = () => {
         </Col>
         <Col>
           <h1>Bot Screen: {name[optionType]}</h1>
-          {optionType === 'field' && <InputFields />}
-          {optionType === 'hook' && <ValidationHook />}
+          {/* {optionType === 'field' && <InputBoxFields />}
+          {optionType === 'hook' && <ValidationHook />} */}
         </Col>
       </Row>
     </>

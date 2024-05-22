@@ -19,7 +19,7 @@ const bankUPIs = {
       'CredUPI',
     ]),
     upiId: getInputFieldParams('upiId', 'UPI ID'),
-    upiPin: getInputFieldParams('upiPin', 'UPI PIN'),
+    upiPin: getInputFieldParams('upiPin', 'UPI PIN', 'password'),
   },
   initialValues: {
     upiApp: 'PhonePe',
@@ -56,9 +56,9 @@ const cards = {
     cardHolderName: getInputFieldParams('cardHolderName'),
     cardHolderRelation: getInputFieldParams('cardHolderRelation'),
     expiryDate: getInputFieldParams('expiryDate'),
-    cardCVV: getInputFieldParams('cardCVV'),
+    cardCVV: getInputFieldParams('cardCVV', 'Card CVV', 'password'),
     cardType: getSelectParams('cardType', null, ['Debit', 'Credit']),
-    cardPin: getInputFieldParams('cardPin'),
+    cardPin: getInputFieldParams('cardPin', null, 'password'),
     cardStatus: getSelectParams('cardStatus', null, [
       'Active',
       'Block',

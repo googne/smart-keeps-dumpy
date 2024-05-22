@@ -4,7 +4,7 @@
 // import { useDispatch, useSelector } from 'react-redux'
 // import FormLayout from '../../layout/FormLayout'
 // import Message from '../../components/core/Message'
-// import InputBox from '../../components/core/InputBox'
+// import TextInput from '../../components/core/TextInput'
 // import {
 //   ADD_ICON,
 //   RESET_ICON,
@@ -82,7 +82,7 @@
 //                       <Message variant="danger">{userLoginError}</Message>
 //                     )}
 //                     {fields.map((field, index) => (
-//                       <InputBox
+//                       <TextInput
 //                         key={index}
 //                         {...inputFields[field]}
 //                         {...validation}

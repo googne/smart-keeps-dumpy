@@ -17,7 +17,7 @@ import Button from '../../../components/core/Btn/Button'
 import ComponentLayout from '../../../layout/ComponentLayout'
 import { addBankHook } from '../../../validation/HelperHook'
 import { extractDigit } from '../../../utils/stringUtils'
-import ArrayInputBox from '../../../components/core/ArrayInputBox'
+import InputBox from '../../../components/core/formInput/InputBox'
 import { containErrors } from '../../../utils/formikUtils'
 import TabularForm from '../../../components/TabularForm'
 import Dependent from './Dependent'
@@ -230,7 +230,7 @@ const AddBankScreen = () => {
                                               field
                                             ]}
                                             name={`${tabName}.${field}`}
-                                            component={ArrayInputBox}
+                                            component={InputBox}
                                           />
                                         </Col>
                                       )
@@ -239,10 +239,6 @@ const AddBankScreen = () => {
                                     <Col md={4}>
                                       <Button
                                         {...bankUPIButton}
-                                        // variant="outline-warning"
-                                        // icon={ADD_ICON}
-                                        // // label="Add UPI"
-                                        // label={bankUPIButton}
                                         className="btn-sm form-control"
                                         size="lg"
                                         style={{ marginTop: '28px' }}

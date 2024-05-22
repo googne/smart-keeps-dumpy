@@ -11,7 +11,7 @@ import { successLight } from '../../inline-styles'
 import { registerHook } from '../../validation/HelperHook'
 import Button from '../../components/core/Btn/Button'
 import FormLayout from '../../layout/FormLayout'
-import ArrayInputBox from '../../components/core/ArrayInputBox'
+import InputBox from '../../components/core/formInput/InputBox'
 
 const RegisterScreen = () => {
   const { fields, validationSchema, initialValues, inputFields } = registerHook
@@ -70,7 +70,7 @@ const RegisterScreen = () => {
                         <Field
                           {...inputFields[field]}
                           name={`${field}`}
-                          component={ArrayInputBox}
+                          component={InputBox}
                         />
                       </Col>
                     ))}
